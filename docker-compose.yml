@@ -1,0 +1,23 @@
+﻿name: school-erp
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: schoolerp
+      POSTGRES_PASSWORD: schoolerp
+      POSTGRES_DB: schoolerp
+    ports:
+      - "5434:5432"
+    volumes:
+      - schoolerp_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U schoolerp"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+volumes:
+  schoolerp_pg:

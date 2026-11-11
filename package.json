@@ -1,0 +1,25 @@
+{
+  "name": "school-erp",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "db:generate": "pnpm --filter @school-erp/database generate",
+    "db:migrate": "pnpm --filter @school-erp/database migrate",
+    "db:seed": "pnpm --filter @school-erp/database seed",
+    "db:push": "pnpm --filter @school-erp/database push",
+    "db:rls": "docker exec -i school-erp-postgres-1 psql -U schoolerp -d schoolerp < packages/database/prisma/rls.sql",
+    "test:tenant": "pnpm --filter @school-erp/api test:tenant",
+    "test:daily": "pnpm --filter @school-erp/api test:daily",
+    "test:load": "pnpm --filter @school-erp/api test:load",
+    "test:e2e": "pnpm --filter @school-erp/web test:e2e"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.2"
+  }
+}

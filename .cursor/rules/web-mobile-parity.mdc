@@ -1,0 +1,39 @@
+---
+description: On every feature prompt, check the web app and the mobile app, then add or remove the feature in both.
+alwaysApply: true
+---
+
+# Web and mobile stay in step
+
+A feature prompt applies to both `apps/web` and `apps/mobile`. Check both before editing. Then add the missing side, or remove the feature from both.
+
+## Check first
+
+Search both trees and say what each side already has.
+
+- Web: `apps/web/src/app/(app)/` and `apps/web/src/lib/nav.ts` (`NAV_BY_MODULE`, `PAGE_TITLES`).
+- Mobile: `apps/mobile/app/`, `apps/mobile/src/screens/`, tab visibility in `apps/mobile/app/(app)/(tabs)/_layout.tsx`, and the More menu in `apps/mobile/src/screens/MoreScreen.tsx`.
+
+Match on the user-facing behavior (route, screen, nav entry, and the API it calls), not only on a shared file name.
+
+## Add or change
+
+If either app lacks the feature, implement that side in the same change.
+
+- Web: a route under `apps/web/src/app/(app)/<feature>/`, plus a `nav.ts` entry when it is a module.
+- Mobile: a screen in `apps/mobile/src/screens/`, a route in `apps/mobile/app/`, and a tab or More row gated like the sibling features (role and module).
+- Call the existing API. Share types from `@school-erp/shared`. Do not invent a second contract.
+
+Example: a prompt to add a library loans page creates `apps/web/src/app/(app)/library/page.tsx` and a `LibraryScreen` plus `apps/mobile/app/(app)/library.tsx`. If the web page already exists, add only the mobile screen and menu entry.
+
+## Remove
+
+A remove prompt deletes the feature from both apps: page, screen, route, nav or More entry, and calls that exist only for it. Keep a shared API type when another feature still uses it.
+
+## Leave these on the web unless the prompt names them
+
+Academic setup, bulk student import, fee-structure editing, exam score entry, and turning an admission into a student. The proctored online-exam attempt stays in the browser.
+
+## Done when
+
+Both apps include the feature, or both no longer include it. The reply states the result for web and for mobile.
